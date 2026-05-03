@@ -1,55 +1,110 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b0f14;
-  color: white;
+  font-family: monospace;
+  background: #07070a;
+  color: #00ff9d;
+  overflow-x: hidden;
 }
 
-.wrapper {
-  max-width: 900px;
+/* animated background grid */
+.bg {
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(rgba(0,255,157,0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0,255,157,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: move 20s linear infinite;
+  z-index: -1;
+}
+
+@keyframes move {
+  from { transform: translate(0,0); }
+  to { transform: translate(-40px,-40px); }
+}
+
+/* layout */
+.container {
+  max-width: 850px;
   margin: auto;
   padding: 40px 20px;
 }
 
-.hero {
-  text-align: center;
-  margin-bottom: 40px;
+/* top language switch */
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.hero h1 {
-  font-size: 50px;
-  margin: 0;
+.topbar a {
+  color: #00ff9d55;
+  text-decoration: none;
+  border: 1px solid #00ff9d22;
+  padding: 4px 10px;
+  border-radius: 4px;
 }
 
-.hero p {
-  color: #8aa4ff;
+.topbar a.active {
+  color: #00ff9d;
+  border-color: #00ff9d66;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+/* header */
+h1 {
+  font-size: 40px;
+  letter-spacing: 5px;
 }
 
-.box {
-  background: #121826;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #1f2a44;
+.subtitle {
+  color: #ffffff55;
+  margin-bottom: 30px;
+}
+
+/* cards */
+.card {
+  border: 1px solid #00ff9d22;
+  background: rgba(15,15,20,0.8);
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
   transition: 0.2s;
 }
 
-.box:hover {
-  transform: translateY(-5px);
-  border-color: #3b5bff;
+.card:hover {
+  border-color: #00ff9d66;
+  transform: translateY(-2px);
 }
 
-.box h2 {
-  color: #3b5bff;
+h2 {
+  font-size: 14px;
+  letter-spacing: 2px;
 }
 
-.footer {
-  text-align: center;
-  margin-top: 50px;
-  color: #555;
+/* links */
+a {
+  color: #00ff9d;
+}
+
+/* footer */
+footer {
+  margin-top: 40px;
+  color: #ffffff33;
+  font-size: 12px;
+}
+
+/* mobile */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  .card {
+    padding: 12px;
+  }
 }
