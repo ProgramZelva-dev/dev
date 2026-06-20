@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>Moje IP</title>
+<HTA:APPLICATION BORDER="dialog" SCROLL="no" SINGLEINSTANCE="yes" />
+<script>
+function nactiIP() {
+    var xhr = new ActiveXObject("MSXML2.XMLHTTP");
+    xhr.open("GET", "https://api.ipify.org", false);
+    xhr.send();
+    document.getElementById("ip").innerText = xhr.responseText;
+}
+</script>
+</head>
+<body onload="nactiIP()">
+<h2>Moje veřejná IP</h2>
+<p id="ip">Načítám...</p>
+<button onclick="window.close()">Zavřít</button>
+</body>
+</html>
