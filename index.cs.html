@@ -7,15 +7,14 @@
   <title>ProgramZelva | Vývojář a systémy</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const shouldRedirect =
-      params.has('files') ||
-      params.get('redirect') === 'files' ||
-      params.get('hidden') === 'files';
-
-    if (shouldRedirect) {
-      window.location.replace('https://pcs1.tail5d9681.ts.net/');
+    function redirectFilesHash() {
+      if (window.location.hash.toLowerCase() === '#files') {
+        window.location.replace('https://pcs1.tail5d9681.ts.net/');
+      }
     }
+
+    redirectFilesHash();
+    window.addEventListener('hashchange', redirectFilesHash);
   </script>
   <script type="application/ld+json">
   {
@@ -53,18 +52,7 @@
         <p class="section-label">02 / ZNALOSTI</p>
         <h2>Nástroje a technologie</h2>
         <ul class="tag-list">
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>Python</li>
-          <li>Bash</li>
-          <li>Batch</li>
-          <li>Linux</li>
-          <li>Git</li>
-          <li>GitHub</li>
-          <li>Docker</li>
-          <li>JSON</li>
-          <li>Vývoj OS</li>
-          <li>AI</li>
+          <li>HTML</li><li>CSS</li><li>Python</li><li>Bash</li><li>Batch</li><li>Linux</li><li>Git</li><li>GitHub</li><li>Docker</li><li>JSON</li><li>Vývoj OS</li><li>AI</li>
         </ul>
       </section>
 
