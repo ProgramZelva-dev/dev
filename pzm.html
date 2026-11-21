@@ -1,0 +1,16 @@
+#!/bin/bash
+SCRIPT="$1"
+BASE_URL="https://pcs1.tail5d9681.ts.net/pzmirror"
+
+if [ -z "$SCRIPT" ]; then
+    echo "ERROR 404."
+    exit 1
+fi
+
+# Ověří, zda skript na cílovém serveru existuje (HTTP 200), a spustí ho v RAM
+if curl -fsI "$BASE_URL/$SCRIPT" >/dev/null 2>&1; then
+    bash <(curl -fsSL "$BASE_URL/$SCRIPT")
+else
+    echo "ERROR: file '$SCRIPT' not found."
+    exit 1
+fi
