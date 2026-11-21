@@ -8,9 +8,8 @@ if [ -z "$SCRIPT" ]; then
 fi
 
 if curl -fsI "$BASE_URL/$SCRIPT" >/dev/null 2>&1; then
-    # Pokud chybí /dev/tty (např. LXC kontejner / web konzole), vytvoří dočasný PTY
     if [ ! -e /dev/tty ] || ! (: </dev/tty) 2>/dev/null; then
-        exec script -q -c "bash <(curl -fsSL \"$BASE_URL/$SCRIPT\")" /dev/null
+        exec script -q -c "bash -c 'bash <(curl -fsSL \"$BASE_URL/$SCRIPT\")'" /dev/null
     else
         bash <(curl -fsSL "$BASE_URL/$SCRIPT")
     fi
