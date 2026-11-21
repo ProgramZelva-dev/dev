@@ -7,9 +7,13 @@ if [ -z "$SCRIPT" ]; then
     exit 1
 fi
 
-# Ověří, zda skript na cílovém serveru existuje (HTTP 200), a spustí ho v RAM
 if curl -fsI "$BASE_URL/$SCRIPT" >/dev/null 2>&1; then
-    bash <(curl -fsSL "$BASE_URL/$SCRIPT")
+    # Pokud chybí /dev/tty (např. LXC kontejner / web konzole), vytvoří dočasný PTY
+    if [ ! -e /dev/tty ] || ! (: </dev/tty) 2>/dev/null; then
+        exec script -q -c "bash <(curl -fsSL \"$BASE_URL/$SCRIPT\")" /dev/null
+    else
+        bash <(curl -fsSL "$BASE_URL/$SCRIPT")
+    fi
 else
     echo "ERROR: file '$SCRIPT' not found."
     exit 1
